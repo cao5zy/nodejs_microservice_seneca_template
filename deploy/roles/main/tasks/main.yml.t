@@ -9,13 +9,13 @@
     src: "./src/"
     dest: "{{'{{'}}deploy_root{{'}}'}}"
     
-- name: "configure {{ name }}"
+- name: "configure {{ deployConfig.instanceName }}"
   template:
     src: default.json.template
     dest: "{{'{{'}}deploy_root{{'}}'}}/config/default.json"
 
 
-- name: "deploy {{ '{{' }} {{ name }} {{ '}}' }} for debug"
+- name: "deploy {{ '{{' }} {{ deployConfig.instanceName }} {{ '}}' }} for debug"
   docker_container:
     name: "{{'{{'}} {{ name }} {{'}}'}}"
     image: "node:6.10.3"
@@ -23,36 +23,36 @@
     volumes:
       - "{{'{{'}}deploy_root{{'}}'}}:/var/app:Z"
     ports:
-      - "{{'{{'}} {{ name }}_port {{'}}'}}:{{'{{'}} {{ name }}_port {{'}}'}}"
+      - "{{'{{'}} {{ deployConfig.instanceName }}_port {{'}}'}}:{{'{{'}} {{ deployConfig.instanceName }}_port {{'}}'}}"
 {% if dep_services is not none %} 
     links:
-{% for service in dep_services %}      - "{{'{{'}}{{service.name}}{{'}}'}}:{{'{{'}}{{service.name}}{{'}}'}}"
+{% for service in dependedServers %}      - "{{'{{'}}{{service.name}}{{'}}'}}:{{'{{'}}{{service.name}}{{'}}'}}"
 {% endfor %}      
 {% endif %}      
     restart: yes
     recreate: yes
     state: started
     entrypoint: "node app.js"
-  when: {{ name }}_debug=="true"
+  when: {{ deployConfig.instanceName }}_debug=="true"
 
-- Name: "deploy {{'{{'}} {{ name }} {{'}}'}} for integration"
+- Name: "deploy {{'{{'}} {{ deployConfig.instanceName }} {{'}}'}} for integration"
   docker_container:
-    name: "{{'{{'}} {{ name }} {{'}}'}}"
+    name: "{{'{{'}} {{ deployConfig.instanceName }} {{'}}'}}"
     image: "node:6.10.3"
     working_dir: "/var/app"
     volumes:
       - "{{'{{'}}deploy_root{{'}}'}}:/var/app:Z"
-    exposed: "{{'{{'}} {{ name }}_port{{'}}'}}"
+    exposed: "{{'{{'}} {{ deployConfig.instanceName }}_port{{'}}'}}"
 {% if dep_services is not none %} 
     links:
-{% for service in dep_services %}      - "{{'{{'}}{{service.name}}{{'}}'}}:{{'{{'}}{{service.name}}{{'}}'}}"
+{% for service in dependedServers %}      - "{{'{{'}}{{service.name}}{{'}}'}}:{{'{{'}}{{service.name}}{{'}}'}}"
 {% endfor %}      
 {% endif %}      
     restart: yes
     recreate: yes
     state: started
     entrypoint: "node app.js"
-  when: {{ name }}_debug=="false"
+  when: {{ deployConfig.instanceName }}_debug=="false"
 
 
 
