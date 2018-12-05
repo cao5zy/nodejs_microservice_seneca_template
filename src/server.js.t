@@ -6,7 +6,7 @@
 			 }
 (function(logger, config, impl){
        return function(options){
-               {% for method in methods %}
+               {% for method in serviceInterface.methods %}
 	       this.add({"action": "{{method.name}}"}, function(msg, respond){
                     impl.{{ method.name }}(msg.param, (data)=>respond(data, null));
 	       });

@@ -1,5 +1,16 @@
 {
     deployConfig: {
 	instanceName: "test_project"
+    },
+    serviceInterface: {
+	methods: [
+	    {
+		name: "add_booking"
+	    }
+	]
+    },
+    dependedServers:[{
+	"name": "customers"
     }
+    ]
 }

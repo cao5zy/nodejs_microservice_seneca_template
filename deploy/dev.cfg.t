@@ -1,13 +1,12 @@
 {
-  "name": "{{name}}",
-  "dependencies": [
-  {% for serv in dep_services %}{
-     "project_name": "{{serv.name}}"
-     }{% if not loop.last %},{% endif %}
+  "name": "{{deployConfig.instanceName}}",
+  "dependencies": [{% for serv in dependedServers %}
+  {
+     "project_name": "{{serv.name}}",
+     "config_name": "dev"
+  }{% if not loop.last %},{% endif %}
   {% endfor %}
   ],
-  "roles_seq": ["main", "api_test"],
-  "predefined_variables": {
-    "host": "130.71.32.2"
-  }
+  "roles_seq": ["main"],
+  "predefined_variables": {}
 }
