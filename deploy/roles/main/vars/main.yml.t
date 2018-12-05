@@ -1,2 +1,2 @@
-{{name}}: "{{'{{public_prefix}}'}}{{name}}"
-deploy_root: ".{{'{{'}} {{name}} {{'}}'}}"
+{{deployConfig.instanceName}}: "{{'{{public_prefix}}'}}{{deployConfig.instanceName}}"
+deploy_root: ".{{'{{'}} {{deployConfig.instanceName}} {{'}}'}}"

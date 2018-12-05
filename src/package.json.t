@@ -1,15 +1,15 @@
 {
-  "name": "{{ name }}",
+  "name": "{{ deployConfig.instanceName }}",
   "version": "1.0.0",
-  "description": "{{ name }}",
+  "description": "{{ deployConfig.instanceName }}",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-      "{{ name }}"
+      "{{ deployConfig.instanceName }}"
    ],
-  "author": "{{ name }}",
+  "author": "{{ deployConfig.instanceName }}",
   "license": "ISC",
   "dependencies": {
      "log4js": "^2.5.3",

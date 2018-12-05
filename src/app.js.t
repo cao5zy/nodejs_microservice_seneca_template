@@ -2,7 +2,7 @@
 (function(factory){
     module.exports = factory(require('seneca')(),
 			     require('log4js'),
-			     require('./service'),
+			     require('./server'),
 			     require('./config')
 			    );
 }(function(seneca, log4js, service, config){
